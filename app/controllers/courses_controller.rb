@@ -1,5 +1,7 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :library]
+  before_action :authenticate_user!, except: [:index, :show]
 
   # GET /courses
   # GET /courses.json
@@ -14,7 +16,7 @@ class CoursesController < ApplicationController
 
   # GET /courses/new
   def new
-    @course = Course.new
+    @course = current_user.courses.build
   end
 
   # GET /courses/1/edit
@@ -24,7 +26,7 @@ class CoursesController < ApplicationController
   # POST /courses
   # POST /courses.json
   def create
-    @course = Course.new(course_params)
+    @course = current_user.courses.build(course_params)
 
     respond_to do |format|
       if @course.save
@@ -59,6 +61,30 @@ class CoursesController < ApplicationController
       format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # Add and remove courses from/to library for current user
+  def library
+
+    type = params[:type]
+
+    if type == "add"
+
+      current_user.library_additions << @course
+      redirect_to library_index_path, notice: "#{@course.title} was added to your library."
+
+    elsif type == "remove"
+
+      current_user.library_additions.delete(@course)
+      redirect_to root_path, notice: "#{@course.title} was removed from your library."
+
+    else
+
+      # type is missing, nothing should happen
+      redirect_to course_path(@course), notice: "Looks like nothing happened. Try again."
+      
+    end
+      
   end
 
   private
