@@ -1,24 +1,20 @@
-<p id="notice"><%= notice %></p>
+<div class="section">
+  <div class="columns">
+    <div class="column is-4">
+      <%= image_tag @course.thumbnail.variant(resize: "320x495"), alt: "#{@course.title} by #{@course.author}" %>
+    </div>
+    <div class="column">
+      <h1 class="title is-2"><%= @course.title %><h1>
 
-<p>
-  <strong>Title:</strong>
-  <%= @course.title %>
-</p>
+        <div class="content">
+          <%= render 'course-controls', course: @course %>
+          <p><strong>Description:</strong></p>
+          <%= @course.description %>
+        </div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @course.description %>
-</p>
-
-<p>
-  <strong>Teacher:</strong>
-  <%= @course.teacher %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @course.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
+      <% if admin? %>
+        <%= link_to 'Edit', edit_course_path(@course) %> |
+      <% end %>
+      </div>
+    </div>
+</div>
