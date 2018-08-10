@@ -13,7 +13,7 @@
     <%= tag :meta, name: "stripe-key", content: Rails.application.credentials.stripe_publishable_key %>
   </head>
 
-  <body class="<%= yield (:body_class) %> <%= controller_name %> <%= action_name %>">
+  <body class="<%= yield (:body_class) %> <%= controller_name %> <%= action_name %> hero is-bold is-fullheight is-primary">
     <% if flash[:notice] %>
       <div class="notification is-success global-notification">
         <p class="notice"><%= notice %></p>
@@ -36,9 +36,18 @@
       </div>
     </nav>
 
-  <div class="container">
-    <%= yield %>
-  </div>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Check our courses
+          </h1>
+          <h2 class="subtitle">
+            <%= link_to 'Subscribe or Log In', new_user_registration_path, class:"button is-primary is-medium is-inverted is-rounded" %>
+          </h2>
+        </div>
+      </div>
+    </section>
 
   </body>
 </html>

@@ -40,7 +40,7 @@ class SubscriptionsController < ApplicationController
 
 		current_user.update(options)
 
-		redirect_to root_path, notice: "Your subscription was setup successfully."
+		redirect_to courses_path, notice: "Your subscription was setup successfully."
 
 	end
 

@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   resources :library, only:[:index]
   resources :pricing, only:[:index]
   devise_for :users, controllers: { registrations: "registrations" }
-  root to: 'courses#index'
+  root to: 'home#index'
   resources :subscriptions
+  resources :home, only:[:index]
 
 end
