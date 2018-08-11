@@ -1,5 +1,5 @@
 document.addEventListener("turbolinks:load", function() {
-  const publishableKey = document.querySelector("meta[name='stripe-key']").attr("content");
+  const publishableKey = document.querySelector("meta[name='stripe-key']").content;
   const stripe = Stripe(publishableKey);
 
   const elements = stripe.elements({
